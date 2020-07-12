@@ -1,5 +1,6 @@
 %{
 #include "y.tab.h"
+#include "Parser.h"
 extern int intval;
 %}
 integer [0-9]+

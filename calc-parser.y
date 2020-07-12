@@ -58,13 +58,8 @@ expr: INTEGER {$$ = intval;}
 
 %%
 
-
-int main(int argc, char **argv) {
-    yyparse();
-}
-
 yyerror(s)
 char *s;
 {
-printf("Oops: %s at symbol %c\n", s, yytext[0]);
+	printf("Oops: %s at symbol %c\n", s, yytext[0]);
 }

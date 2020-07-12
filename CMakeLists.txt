@@ -19,4 +19,4 @@ flex_target(lesson-scanner
         ${CMAKE_CURRENT_BINARY_DIR}/scanner.tab.cpp
         )
 add_flex_bison_dependency(lesson-scanner lesson-parser)
-add_executable(lesson main.cpp ${BISON_MyParser_OUTPUTS} ${FLEX_MyScanner_OUTPUTS} main.cpp)
+add_executable(lesson main.cpp ${BISON_MyParser_OUTPUTS} ${FLEX_MyScanner_OUTPUTS} Parser.cpp Parser.h main.cpp)

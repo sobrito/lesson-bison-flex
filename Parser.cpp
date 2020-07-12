@@ -4,7 +4,3 @@
 
 #include "Parser.h"
 
-int Test::Parser::parser() {
-    return yyparse();
-}
-

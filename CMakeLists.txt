@@ -9,14 +9,22 @@ find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
 
 
-bison_target(lesson-parser
-        calc-parser.y
-        ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cpp
+bison_target(lesson-sentence
+        calc-sentence.y
+        ${CMAKE_CURRENT_BINARY_DIR}/sentence.tab.cpp
         )
+message("Bison header ${BISON_lesson-sentence_OUTPUT_HEADER}")
+add_definitions(-DYACC_TABLE_H="${BISON_lesson-sentence_OUTPUT_HEADER}")
 
-flex_target(lesson-scanner
-        calc-scanner.l
-        ${CMAKE_CURRENT_BINARY_DIR}/scanner.tab.cpp
+flex_target(lesson-syntax
+        calc-syntax.l
+        ${CMAKE_CURRENT_BINARY_DIR}/syntax.tab.cpp
         )
-add_flex_bison_dependency(lesson-scanner lesson-parser)
-add_executable(lesson main.cpp ${BISON_MyParser_OUTPUTS} ${FLEX_MyScanner_OUTPUTS} Parser.cpp Parser.h main.cpp)
+add_flex_bison_dependency(lesson-syntax lesson-sentence)
+add_executable(lesson main.cpp
+        ${BISON_lesson-syntax_OUTPUTS}
+        ${FLEX_lesson-syntax_OUTPUTS}
+        Parser.cpp
+        Parser.h
+        main.cpp
+        )

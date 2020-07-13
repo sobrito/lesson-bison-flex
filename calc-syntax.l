@@ -1,7 +1,9 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "y.tab.h"
+#ifdef YACC_TABLE_H
+#include YACC_TABLE_H
+#endif
 void yyerror(char *s);
 %}
 

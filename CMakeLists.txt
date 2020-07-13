@@ -4,11 +4,11 @@ project(lesson)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-write-strings")
 
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
-
-
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 bison_target(lesson-sentence
         calc-sentence.y
         ${CMAKE_CURRENT_BINARY_DIR}/sentence.tab.cpp
@@ -22,7 +22,7 @@ flex_target(lesson-syntax
         )
 add_flex_bison_dependency(lesson-syntax lesson-sentence)
 
-set(LESSON_LIBS ${LESSON_LIBS} l)
+set(LESSON_LIBS ${LESSON_LIBS} l )
 
 foreach (REQUIRED_LIBRARY ${LESSON_LIBS})
     find_library(REQUIRED_LIBRARY_PATH NAMES ${REQUIRED_LIBRARY})
@@ -32,11 +32,13 @@ foreach (REQUIRED_LIBRARY ${LESSON_LIBS})
     message("library ${REQUIRED_LIBRARY} is found")
 endforeach (REQUIRED_LIBRARY)
 
-add_executable(lesson main.cpp
-        ${BISON_lesson-syntax_OUTPUTS}
+message("out ${BISON_lesson-sentence_OUTPUTS} ${FLEX_lesson-syntax_OUTPUTS}")
+
+add_executable(lesson
+        #main.cpp
+        ${BISON_lesson-sentence_OUTPUTS}
         ${FLEX_lesson-syntax_OUTPUTS}
-        Parser.cpp
-        Parser.h
-        main.cpp
+#        Parser.cpp
+#        Parser.h
         )
 target_link_libraries(lesson ${LESSON_LIBS})

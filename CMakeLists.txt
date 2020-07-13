@@ -21,6 +21,17 @@ flex_target(lesson-syntax
         ${CMAKE_CURRENT_BINARY_DIR}/syntax.tab.cpp
         )
 add_flex_bison_dependency(lesson-syntax lesson-sentence)
+
+set(LESSON_LIBS ${LESSON_LIBS} l)
+
+foreach (REQUIRED_LIBRARY ${LESSON_LIBS})
+    find_library(REQUIRED_LIBRARY_PATH NAMES ${REQUIRED_LIBRARY})
+    if (NOT REQUIRED_LIBRARY_PATH)
+        message(FATAL_ERROR "lib ${REQUIRED_LIBRARY} not found")
+    endif ()
+    message("library ${REQUIRED_LIBRARY} is found")
+endforeach (REQUIRED_LIBRARY)
+
 add_executable(lesson main.cpp
         ${BISON_lesson-syntax_OUTPUTS}
         ${FLEX_lesson-syntax_OUTPUTS}
@@ -28,3 +39,4 @@ add_executable(lesson main.cpp
         Parser.h
         main.cpp
         )
+target_link_libraries(lesson ${LESSON_LIBS})

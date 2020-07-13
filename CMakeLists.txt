@@ -35,10 +35,10 @@ endforeach (REQUIRED_LIBRARY)
 message("out ${BISON_lesson-sentence_OUTPUTS} ${FLEX_lesson-syntax_OUTPUTS}")
 
 add_executable(lesson
-        #main.cpp
+        main.cpp
         ${BISON_lesson-sentence_OUTPUTS}
         ${FLEX_lesson-syntax_OUTPUTS}
-#        Parser.cpp
-#        Parser.h
+        Parser.cpp
+        Parser.h
         )
 target_link_libraries(lesson ${LESSON_LIBS})

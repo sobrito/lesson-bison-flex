@@ -2,5 +2,6 @@
 #include "Parser.h"
 
 int main(int argc, char **argv) {
-    return 1;
+    Test::Parser::parser();
+    std::cout << "Hello World!";
 }

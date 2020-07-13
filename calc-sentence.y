@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include "Parser.h"
 void yyerror(char *s);
 int yylex(void);
 extern char *yytext;
@@ -8,7 +9,7 @@ extern char *yytext;
 %token N OP EOL
 %left OP
 %%
-S:	S E EOL { $$ = $2; printf("result: %d", $2); }
+S:	S E EOL { $$ = $2; printf("result: %d\r\n", $2); }
 	|
 ;
 E:
@@ -19,6 +20,6 @@ E:
 void yyerror(char *s){
 	printf("Syntax error: %s, near %s", s, yytext);
 }
-int main(int argc, char **argv) {
+int Test::Parser::parser(){
 	return yyparse();
 }

@@ -6,11 +6,29 @@ int yylex(void);
 extern char *yytext;
 %}
 
-%token N OP EOL
+%union {
+     int intVal;
+     float floatVal;
+     char *stringVal;
+     char charVal;
+}
+
+%token <intVal> N OP EOL IMPORT QUOTE DOUBLE_QUOTE
+%token <stringVal> VALUE
+
 %left OP
+%type <intVal> S E _import
 %%
+t:
+	S
+	| _import
+	;
+_import:
+    	IMPORT  QUOTE VALUE QUOTE { printf("q: %s", $3); }
+    	| IMPORT DOUBLE_QUOTE  VALUE DOUBLE_QUOTE {printf("dq: %s", $3);}
+    	;
 S:	S E EOL { $$ = $2; printf("result: %d\r\n", $2); }
-	|
+	| {}
 ;
 E:
 	N { $$ = $1; }

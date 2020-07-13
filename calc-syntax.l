@@ -8,11 +8,14 @@ void yyerror(char *s);
 %}
 
 %%
-[0-9]+		{yylval = atoi(yytext); return N;}
-\n		{ return EOL;}
-[+]		{ return OP;}
-[ \t]+	;
-. 		{printf("Token unrecognized");}
+[0-9]+		        {yylval.intVal = atoi(yytext); return N;}
+[+]		            { return OP;}
+import              { return IMPORT;}
+'                   { return QUOTE;}
+\"                  { return DOUBLE_QUOTE;}
+\n		            { return EOL;}
+[ \t]+	            ;
+. 		            {printf("Token unrecognized");}
 %%
 
 int yywrap(){
